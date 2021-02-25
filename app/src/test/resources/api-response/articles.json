@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "author": "author 1",
+    "content": "content 1",
+    "description": "description 1",
+    "publishedAt": "publishedAt 1",
+    "source": {
+         "id": "source id 1",
+       "name": "source name 1"
+    },
+    "title": "title 1",
+    "url": "url 1",
+    "urlToImage": "urlToImage 1"
+  },
+  {
+    "id": 2,
+    "author": "author 2",
+    "content": "content 2",
+    "description": "description 2",
+    "publishedAt": "publishedAt 2",
+    "source": {
+      "id": "source id 2",
+      "name": "source name 2"
+    },
+    "title": "title 2",
+    "url": "url 2",
+    "urlToImage": "urlToImage 2"
+  }
+]
