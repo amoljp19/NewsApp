@@ -1,13 +1,11 @@
-package com.softaai.newsapp.newsArticles.ui
+package com.softaai.newsapp.newsArticles.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.multidex.BuildConfig
 import com.softaai.newsapp.R
 import com.softaai.newsapp.data.network.State
-import com.softaai.newsapp.newsArticles.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

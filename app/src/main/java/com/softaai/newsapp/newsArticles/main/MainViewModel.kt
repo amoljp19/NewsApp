@@ -1,4 +1,4 @@
-package com.softaai.newsapp.newsArticles.viewmodel
+package com.softaai.newsapp.newsArticles.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
