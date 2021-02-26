@@ -52,7 +52,7 @@ class NewsApiServiceTest {
     @Test
     fun getArticlesTest() = runBlocking {
         enqueueResponse("/articles.json")
-        val articles = service.getArticles().body()
+        val articles = service.getArticles().body()?.articles
 
         assertThat(articles, notNullValue())
         assertThat(articles!!.size, `is`(2))

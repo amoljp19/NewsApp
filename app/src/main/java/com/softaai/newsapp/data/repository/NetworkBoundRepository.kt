@@ -34,7 +34,7 @@ abstract class NetworkBoundRepository<RESULT, REQUEST> {
 
 
     @WorkerThread
-    protected abstract suspend fun saveRemoteData(response: REQUEST)
+    protected abstract suspend fun saveRemoteData(response: REQUEST?)
 
 
     @MainThread
@@ -42,5 +42,5 @@ abstract class NetworkBoundRepository<RESULT, REQUEST> {
 
 
     @MainThread
-    protected abstract suspend fun fetchFromRemote(): Response<REQUEST>
+    protected abstract suspend fun  fetchFromRemote(): Response<REQUEST>
 }

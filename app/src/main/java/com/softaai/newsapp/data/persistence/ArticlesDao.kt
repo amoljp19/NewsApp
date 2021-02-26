@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 interface ArticlesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addArticles(articles: List<Article>)
+    suspend fun addArticles(articles: List<Article>?)
 
     @Query("DELETE FROM ${Article.TABLE_NAME}")
     suspend fun deleteAllArticles()

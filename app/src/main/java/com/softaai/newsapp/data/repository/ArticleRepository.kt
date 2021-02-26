@@ -5,6 +5,7 @@ import com.softaai.newsapp.data.network.NewsApiService
 import com.softaai.newsapp.data.network.Resource
 import com.softaai.newsapp.data.persistence.ArticlesDao
 import com.softaai.newsapp.model.Article
+import com.softaai.newsapp.model.NewsArticleApiResponse
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import retrofit2.Response
@@ -21,13 +22,13 @@ class DefaultArticleRepository @Inject constructor(
 ) : ArticleRepository {
 
     override fun getAllArticles(): Flow<Resource<List<Article>>> {
-        return object : NetworkBoundRepository<List<Article>, List<Article>>() {
+        return object : NetworkBoundRepository<List<Article>, NewsArticleApiResponse>() {
 
-            override suspend fun saveRemoteData(response: List<Article>) = articlesDao.addArticles(response)
+            override suspend fun saveRemoteData(response: NewsArticleApiResponse?) = articlesDao.addArticles(response?.articles)
 
             override fun fetchFromLocal(): Flow<List<Article>> = articlesDao.getAllArticles()
 
-            override suspend fun fetchFromRemote(): Response<List<Article>> = newsApiService.getArticles()
+            override suspend fun fetchFromRemote(): Response<NewsArticleApiResponse> = newsApiService.getArticles()
         }.asFlow()
     }
 
