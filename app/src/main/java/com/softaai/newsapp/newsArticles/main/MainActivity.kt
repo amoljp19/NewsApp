@@ -28,14 +28,18 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun onStart() {
         super.onStart()
-        getArticles()
         observeArticles()
     }
 
     fun initView() {
         mViewBinding.run {
             articleRecyclerView.adapter = mAdapter
+            swipeRefreshLayout.setOnRefreshListener { getArticles() }
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        mViewBinding.swipeRefreshLayout.isRefreshing = isLoading
     }
 
 
@@ -48,15 +52,16 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
     private fun observeArticles() {
         mViewModel.articlesLiveData.observe(this) { state ->
             when (state) {
-                is State.Loading -> Toast.makeText(applicationContext, "Loading...", Toast.LENGTH_SHORT).show()
+                is State.Loading -> showLoading(true)
                 is State.Success -> {
                     if (state.data.isNotEmpty()) {
-                        Toast.makeText(applicationContext, " " + state.data, Toast.LENGTH_SHORT).show()
                         mAdapter.submitList(state.data.toMutableList())
+                        showLoading(false)
                     }
                 }
                 is State.Error -> {
                     Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT).show()
+                    showLoading(false)
                 }
             }
         }
