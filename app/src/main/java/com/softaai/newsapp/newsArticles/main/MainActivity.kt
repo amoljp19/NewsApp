@@ -6,16 +6,18 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.softaai.newsapp.R
 import com.softaai.newsapp.data.network.State
+import com.softaai.newsapp.databinding.ActivityMainBinding
+import com.softaai.newsapp.newsArticles.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
-    val mViewModel: MainViewModel by viewModels()
+    override val mViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(mViewBinding.root)
 
 
 
@@ -44,4 +46,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun getViewBinding(): ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+
 }
