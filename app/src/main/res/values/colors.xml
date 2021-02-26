@@ -10,4 +10,7 @@
 
     <color name="imageBackgroundTint">#C3C3C3</color>
 
+    <color name="colorStatusConnected">#43A047</color>
+    <color name="colorStatusNotConnected">#D32F2F</color>
+
 </resources>

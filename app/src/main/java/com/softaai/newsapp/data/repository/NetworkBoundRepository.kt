@@ -29,7 +29,7 @@ abstract class NetworkBoundRepository<RESULT, REQUEST> {
         )
     }.catch { e ->
         e.printStackTrace()
-        emit(Resource.Failed("Network error! Can't get latest posts."))
+        emit(Resource.Failed("Network error! Can't get latest articles."))
     }
 
 
