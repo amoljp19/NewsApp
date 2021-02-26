@@ -7,9 +7,10 @@ import androidx.activity.viewModels
 import coil.load
 import com.softaai.newsapp.databinding.ActivityArticleDetailsBinding
 import com.softaai.newsapp.newsArticles.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArticleDetailsBinding>() {
 
     @Inject

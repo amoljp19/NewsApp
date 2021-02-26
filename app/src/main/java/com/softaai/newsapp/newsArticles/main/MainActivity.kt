@@ -8,6 +8,7 @@ import com.softaai.newsapp.data.network.State
 import com.softaai.newsapp.databinding.ActivityMainBinding
 import com.softaai.newsapp.model.Article
 import com.softaai.newsapp.newsArticles.base.BaseActivity
+import com.softaai.newsapp.newsArticles.details.ArticleDetailsActivity
 import com.softaai.newsapp.newsArticles.main.adapter.ArticleListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,7 +45,12 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
 
     private fun onItemClicked(article: Article, imageView: ImageView) {
-        TODO("Not yet implemented")
+        val articleId = article.id ?: run {
+            Toast.makeText(applicationContext, "Unable to launch details", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val intent = ArticleDetailsActivity.getStartIntent(this, articleId)
+        startActivity(intent)
     }
 
     private fun getArticles() = mViewModel.getArticles()
