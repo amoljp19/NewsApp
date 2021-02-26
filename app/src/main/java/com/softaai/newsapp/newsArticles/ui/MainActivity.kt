@@ -19,21 +19,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        mViewModel.articlesLiveData.value?.let { currentState ->
-            if (!currentState.isSuccessful()) {
-                getArticles()
-            }
-        }
+
 
     }
 
     override fun onStart() {
         super.onStart()
-        mViewModel.articlesLiveData.value?.let { currentState ->
-            if (!currentState.isSuccessful()) {
-                getArticles()
-            }
-        }
+        getArticles()
         observeArticles()
     }
 
