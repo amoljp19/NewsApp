@@ -28,8 +28,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        //buildConfigField("String", "API_KEY", API_KEY)
-
         each{type ->
             type.buildConfigField STRING, 'API_KEY', API_KEY
         }
@@ -102,10 +100,10 @@ dependencies {
     // multidex
     implementation 'com.android.support:multidex:1.0.3'
 
-    //Coil
+    // Coil
     implementation("io.coil-kt:coil:1.1.1")
 
-    //swipeToRefresh
+    // swipeToRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     testImplementation 'junit:junit:4.13.2'

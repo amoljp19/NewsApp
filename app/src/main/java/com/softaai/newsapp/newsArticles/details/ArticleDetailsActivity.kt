@@ -37,9 +37,6 @@ class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArt
         super.onStart()
         initArticle()
 
-        getLikesCount()
-        getCommentsCount()
-
         observeLikes()
         observeComments()
     }
@@ -50,30 +47,35 @@ class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArt
                 articleTitle.text = article.title
                 articleAuthor.text = article.author
                 articleDescription.text = article.description
+                getLikesCount(getArticleId(article.url))
+                getCommentsCount(getArticleId(article.url))
             }
             mViewBinding.imageView.load(article.urlToImage)
         }
     }
 
+    private fun getArticleId(articleUrl: String?) : String?{
+         return articleUrl?.replaceFirst("https://", "")?.replace("/", "-")
+    }
 
-    private fun getLikesCount() = mViewModel.getLikesCount("https://cn-news-info-api.herokuapp.com/likes/theverge.com-2020-7-21-21332300-nikon-z5-full-frame-mirrorless-camera-price-release-date-specs-index.html")
 
-    private fun getCommentsCount() = mViewModel.getCommentsCount("https://cn-news-info-api.herokuapp.com/comments/theverge.com-2020-7-21-21332300-nikon-z5-full-frame-mirrorless-camera-price-release-date-specs-index.html")
+    private fun getLikesCount(articleId: String?) = mViewModel.getLikesCount("https://cn-news-info-api.herokuapp.com/likes/${articleId}")
+
+    private fun getCommentsCount(articleId: String?) = mViewModel.getCommentsCount("https://cn-news-info-api.herokuapp.com/comments/${articleId}")
 
     private fun observeLikes() {
         mViewModel.likesLiveData.observe(this) { state ->
             when (state) {
-                is State.Loading -> showLoading(true)
                 is State.Success -> {
                     state.data.let {
-                        Toast.makeText(applicationContext, "Likes Count " + it, Toast.LENGTH_SHORT).show()
-                        showLoading(false)
+                        if(it != null) {
+                            mViewBinding.articleContent.articleLikesCount.text = "Number of Likes : ${it.likes}"
+                        }
                     }
 
                 }
                 is State.Error -> {
                     Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT).show()
-                    showLoading(false)
                 }
             }
         }
@@ -83,23 +85,18 @@ class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArt
     private fun observeComments() {
         mViewModel.commentsLiveData.observe(this) { state ->
             when (state) {
-                is State.Loading -> showLoading(true)
                 is State.Success -> {
                     state.data.let {
-                        Toast.makeText(applicationContext, "Comment Count " + it, Toast.LENGTH_SHORT).show()
-                        showLoading(false)
+                        if(it != null) {
+                            mViewBinding.articleContent.articleCommentsCount.text = "Number of Comments : ${it.comments}"
+                        }
                     }
                 }
                 is State.Error -> {
                     Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT).show()
-                    showLoading(false)
                 }
             }
         }
-    }
-
-    private fun showLoading(isLoading: Boolean) {
-       // mViewBinding.swipeRefreshLayout.isRefreshing = isLoading
     }
 
 
