@@ -3,8 +3,10 @@ package com.softaai.newsapp.newsArticles.details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import coil.load
+import com.softaai.newsapp.data.network.State
 import com.softaai.newsapp.databinding.ActivityArticleDetailsBinding
 import com.softaai.newsapp.newsArticles.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +36,12 @@ class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArt
     override fun onStart() {
         super.onStart()
         initArticle()
+
+        getLikesCount()
+        getCommentsCount()
+
+        observeLikes()
+        observeComments()
     }
 
     private fun initArticle() {
@@ -45,6 +53,53 @@ class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArt
             }
             mViewBinding.imageView.load(article.urlToImage)
         }
+    }
+
+
+    private fun getLikesCount() = mViewModel.getLikesCount("https://cn-news-info-api.herokuapp.com/likes/theverge.com-2020-7-21-21332300-nikon-z5-full-frame-mirrorless-camera-price-release-date-specs-index.html")
+
+    private fun getCommentsCount() = mViewModel.getCommentsCount("https://cn-news-info-api.herokuapp.com/comments/theverge.com-2020-7-21-21332300-nikon-z5-full-frame-mirrorless-camera-price-release-date-specs-index.html")
+
+    private fun observeLikes() {
+        mViewModel.likesLiveData.observe(this) { state ->
+            when (state) {
+                is State.Loading -> showLoading(true)
+                is State.Success -> {
+                    state.data.let {
+                        Toast.makeText(applicationContext, "Likes Count " + it, Toast.LENGTH_SHORT).show()
+                        showLoading(false)
+                    }
+
+                }
+                is State.Error -> {
+                    Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT).show()
+                    showLoading(false)
+                }
+            }
+        }
+    }
+
+
+    private fun observeComments() {
+        mViewModel.commentsLiveData.observe(this) { state ->
+            when (state) {
+                is State.Loading -> showLoading(true)
+                is State.Success -> {
+                    state.data.let {
+                        Toast.makeText(applicationContext, "Comment Count " + it, Toast.LENGTH_SHORT).show()
+                        showLoading(false)
+                    }
+                }
+                is State.Error -> {
+                    Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT).show()
+                    showLoading(false)
+                }
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+       // mViewBinding.swipeRefreshLayout.isRefreshing = isLoading
     }
 
 

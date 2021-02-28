@@ -17,8 +17,7 @@ abstract class NetworkBoundRepository<RESULT, REQUEST> {
         val remoteArticles = apiResponse.body()
 
         if (apiResponse.isSuccessful && remoteArticles != null) {
-            val value = saveRemoteData(remoteArticles)
-            print(value)
+            saveRemoteData(remoteArticles)
         } else {
             emit(Resource.Failed(apiResponse.message()))
         }

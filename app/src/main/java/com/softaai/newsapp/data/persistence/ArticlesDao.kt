@@ -1,10 +1,9 @@
 package com.softaai.newsapp.data.persistence
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.softaai.newsapp.model.Article
+import com.softaai.newsapp.model.Comments
+import com.softaai.newsapp.model.Likes
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -22,4 +21,20 @@ interface ArticlesDao {
 
     @Query("SELECT * FROM ${Article.TABLE_NAME}")
     fun getAllArticles(): Flow<List<Article>>
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addLikes(likes: Likes?)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addComments(comments: Comments?)
+
+
+    @Query("SELECT * FROM ${Likes.TABLE_NAME}")
+    fun getLikes(): Flow<Likes>
+
+
+    @Query("SELECT * FROM ${Comments.TABLE_NAME}")
+    fun getComments(): Flow<Comments>
+
 }
