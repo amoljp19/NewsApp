@@ -10,8 +10,8 @@ import com.squareup.moshi.JsonClass
 @Entity(tableName = TABLE_NAME)
 @JsonClass(generateAdapter = true)
 data class Article(
-    @PrimaryKey
-    var id: Int? = 0,
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0,
     @Json(name = "author")
     val author: String?,
     @Json(name = "content")

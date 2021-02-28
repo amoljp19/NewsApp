@@ -17,7 +17,8 @@ abstract class NetworkBoundRepository<RESULT, REQUEST> {
         val remoteArticles = apiResponse.body()
 
         if (apiResponse.isSuccessful && remoteArticles != null) {
-            saveRemoteData(remoteArticles)
+            val value = saveRemoteData(remoteArticles)
+            print(value)
         } else {
             emit(Resource.Failed(apiResponse.message()))
         }
@@ -29,7 +30,7 @@ abstract class NetworkBoundRepository<RESULT, REQUEST> {
         )
     }.catch { e ->
         e.printStackTrace()
-        emit(Resource.Failed("Network error! Can't get latest articles."))
+        emit(Resource.Failed("Something went wrong! Can't get latest articles."))
     }
 
 
