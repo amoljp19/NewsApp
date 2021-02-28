@@ -9,7 +9,11 @@ import com.softaai.newsapp.model.Article
 import com.softaai.newsapp.model.Comments
 import com.softaai.newsapp.model.Likes
 
-@Database(entities = [Article::class, Likes::class, Comments::class], version = 1, exportSchema = false)
+@Database(
+    entities = [Article::class, Likes::class, Comments::class],
+    version = 1,
+    exportSchema = false
+)
 @TypeConverters(Converters::class)
 abstract class NewsArticlesDatabase : RoomDatabase() {
 

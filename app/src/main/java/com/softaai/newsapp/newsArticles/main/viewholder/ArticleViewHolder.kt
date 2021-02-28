@@ -7,7 +7,8 @@ import com.softaai.newsapp.R
 import com.softaai.newsapp.databinding.ItemArticleBinding
 import com.softaai.newsapp.model.Article
 
-class ArticleViewHolder(private val binding: ItemArticleBinding) : RecyclerView.ViewHolder(binding.root) {
+class ArticleViewHolder(private val binding: ItemArticleBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
     fun bind(article: Article, onItemClicked: (Article, ImageView) -> Unit) {
         binding.articleDescription.text = article.title

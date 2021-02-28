@@ -21,7 +21,7 @@ class NewsApiModule {
     @Singleton
     fun provideOkHttpClient() = OkHttpClient.Builder().addInterceptor(RequestInterceptor()).build();
 
-    
+
     @Singleton
     @Provides
     fun provideRetrofitService(okHttpClient: OkHttpClient): NewsApiService = Retrofit.Builder()

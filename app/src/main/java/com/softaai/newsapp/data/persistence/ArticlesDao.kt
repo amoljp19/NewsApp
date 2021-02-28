@@ -1,6 +1,9 @@
 package com.softaai.newsapp.data.persistence
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.softaai.newsapp.model.Article
 import com.softaai.newsapp.model.Comments
 import com.softaai.newsapp.model.Likes

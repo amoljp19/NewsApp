@@ -13,7 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArticleDetailsBinding>() {
+class ArticleDetailsActivity :
+    BaseActivity<ArticleDetailsViewModel, ActivityArticleDetailsBinding>() {
 
     @Inject
     lateinit var viewModelFactory: ArticleDetailsViewModel.ArticleDetailsViewModelFactory
@@ -54,28 +55,32 @@ class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArt
         }
     }
 
-    private fun getArticleId(articleUrl: String?) : String?{
-         return articleUrl?.replaceFirst("https://", "")?.replace("/", "-")
+    private fun getArticleId(articleUrl: String?): String? {
+        return articleUrl?.replaceFirst("https://", "")?.replace("/", "-")
     }
 
 
-    private fun getLikesCount(articleId: String?) = mViewModel.getLikesCount("https://cn-news-info-api.herokuapp.com/likes/${articleId}")
+    private fun getLikesCount(articleId: String?) =
+        mViewModel.getLikesCount("https://cn-news-info-api.herokuapp.com/likes/${articleId}")
 
-    private fun getCommentsCount(articleId: String?) = mViewModel.getCommentsCount("https://cn-news-info-api.herokuapp.com/comments/${articleId}")
+    private fun getCommentsCount(articleId: String?) =
+        mViewModel.getCommentsCount("https://cn-news-info-api.herokuapp.com/comments/${articleId}")
 
     private fun observeLikes() {
         mViewModel.likesLiveData.observe(this) { state ->
             when (state) {
                 is State.Success -> {
                     state.data.let {
-                        if(it != null) {
-                            mViewBinding.articleContent.articleLikesCount.text = "Number of Likes : ${it.likes}"
+                        if (it != null) {
+                            mViewBinding.articleContent.articleLikesCount.text =
+                                "Number of Likes : ${it.likes}"
                         }
                     }
 
                 }
                 is State.Error -> {
-                    Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -87,18 +92,19 @@ class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArt
             when (state) {
                 is State.Success -> {
                     state.data.let {
-                        if(it != null) {
-                            mViewBinding.articleContent.articleCommentsCount.text = "Number of Comments : ${it.comments}"
+                        if (it != null) {
+                            mViewBinding.articleContent.articleCommentsCount.text =
+                                "Number of Comments : ${it.comments}"
                         }
                     }
                 }
                 is State.Error -> {
-                    Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
     }
-
 
 
     override fun getViewBinding(): ActivityArticleDetailsBinding =
@@ -111,6 +117,11 @@ class ArticleDetailsActivity : BaseActivity<ArticleDetailsViewModel, ActivityArt
         fun getStartIntent(
             context: Context,
             articleId: Int
-        ) = Intent(context, ArticleDetailsActivity::class.java).apply { putExtra(KEY_ARTICLE_ID, articleId) }
+        ) = Intent(context, ArticleDetailsActivity::class.java).apply {
+            putExtra(
+                KEY_ARTICLE_ID,
+                articleId
+            )
+        }
     }
 }

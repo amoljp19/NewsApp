@@ -12,7 +12,7 @@ data class Comments(
     @PrimaryKey
     @Json(name = "comments")
     val comments: Int?
-){
+) {
     companion object {
         const val TABLE_NAME = "article_comments"
     }

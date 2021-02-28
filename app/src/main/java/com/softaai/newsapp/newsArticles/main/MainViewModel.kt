@@ -8,9 +8,9 @@ import com.softaai.newsapp.data.network.State
 import com.softaai.newsapp.data.repository.ArticleRepository
 import com.softaai.newsapp.model.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

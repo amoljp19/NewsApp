@@ -3,7 +3,6 @@ package com.softaai.newsapp.newsArticles.details
 import androidx.lifecycle.*
 import com.softaai.newsapp.data.network.State
 import com.softaai.newsapp.data.repository.ArticleRepository
-import com.softaai.newsapp.model.Article
 import com.softaai.newsapp.model.Comments
 import com.softaai.newsapp.model.Likes
 import dagger.assisted.Assisted

@@ -60,7 +60,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
 
     private fun onItemClicked(article: Article, imageView: ImageView) {
         val articleId = article.id ?: run {
-            Toast.makeText(applicationContext, "Unable to launch details", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Unable to launch details", Toast.LENGTH_SHORT)
+                .show()
             return
         }
         val intent = ArticleDetailsActivity.getStartIntent(this, articleId)
@@ -80,7 +81,8 @@ class MainActivity : BaseActivity<MainViewModel, ActivityMainBinding>() {
                     }
                 }
                 is State.Error -> {
-                    Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT)
+                        .show()
                     showLoading(false)
                 }
             }

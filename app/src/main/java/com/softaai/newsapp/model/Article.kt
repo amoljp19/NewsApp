@@ -28,7 +28,7 @@ data class Article(
     val url: String?,
     @Json(name = "urlToImage")
     val urlToImage: String?
-){
+) {
     companion object {
         const val TABLE_NAME = "news_articles"
     }
